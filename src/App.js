@@ -1,11 +1,15 @@
 import './App.css';
-import Bye from "./Bye";
+import {useState} from "react";
 
 function App() {
-  let name = "Khachatur";
+  const [value, setValue] = useState("");
   return (
     <div className="App">
-      <Bye name={name} age={22} gender="male"/>
+        <h1>{value}</h1>
+      <input type="input" value={value} onChange={(e) => {
+          setValue(e.target.value);
+        }
+      }/>
     </div>
   );
 }
