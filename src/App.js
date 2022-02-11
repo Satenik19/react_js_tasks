@@ -1,55 +1,56 @@
 import './App.css';
-import React, {useState} from 'react';
-import TodoList from './TodoList';
-import TodoForm from './TodoForm';
-import TodoFooter from './TodoFooter';
+import React, {useEffect, useState} from 'react';
+import useCoronaData from "./useCoronaData";
 
 function App() {
-    const [todos, setTodos] = useState([
-        {
-            id: Math.random(),
-            text: "Learn Java",
-            isCompleted: false
-        },
-        {
-            id: Math.random(),
-            text: "Learn JS",
-            isCompleted: false
-        },
-        {
-            id: Math.random(),
-            text: "Learn PHP",
-            isCompleted: false
-        }
-    ])
+    const [title, setTitle] = useState("");
+    // const [data, setData] = useState();
+    // UseEffect is calling only after rendering
+    // If the second parameter is not empty, it's calling 1 time after mount, and every time when that parameter(s) change(s)
+    // UseEffect returns a function before calling next function in it
+    // UseEffect can't be inside if
+
+
+    // useEffect(() => {
+    //     console.log("UseEffect");
+    //     // Debounce with setTimeout
+    //     if (title.length === 2) {
+    //         const handle = setTimeout(() => {
+    //             fetch(`https://corona-api.com/countries/${title}`)
+    //                 .then(stream => stream.json())
+    //                 .then(results => setData(results.data))
+    //         }, 1000);
+    //
+    //         return () => {
+    //             clearTimeout(handle);
+    //         }
+    //     }
+    // }, [title]);
+    const data = useCoronaData(title);
+
+    // useEffect(() => {
+    //     console.log("UseEffect");
+    //     fetch(`https://corona-api.com/countries`)
+    //         .then(stream => stream.json())
+    //         .then(results => setData(results.data))
+    // }, []);
+
+    let confirmed = "";
+    let name = "";
+    if (data !== undefined) {
+        confirmed = data.latest_data.confirmed;
+        name = data.name;
+    }
+
     return (
         <div className="App">
-            <TodoForm onAdd={(text) => {
-                setTodos([
-                    ...todos,
-                    {
-                        id: Math.random(),
-                        text,
-                        isCompleted: false
-                    }
-                ])
-            }}/>
-            <TodoList todos={todos}
-                      onChange={(newTodo) => {
-                          console.log(newTodo, "new todo");
-                          setTodos(todos.map(todo => {
-                              if (todo.id === newTodo.id) {
-                                  return newTodo;
-                              }
-                              return todo;
-                          }));
-                      }}
-                      onDelete={(todo) => {
-                          setTodos(todos.filter(t => t.id !== todo.id));
-                      }}/>
-            <TodoFooter todos={todos} onClearCompleted={() => {
-                setTodos(todos.filter(todo => !todo.isCompleted));
-            }}/>
+            <input
+                type="text"
+                value={title}
+                onChange={(e) => {
+                setTitle(e.target.value)}}
+            />
+            <h1>{name} {confirmed}</h1>
         </div>
     );
 }
