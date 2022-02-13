@@ -1,40 +1,23 @@
 import './App.css';
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import TodoList from './TodoList';
 import TodoForm from './TodoForm';
 import TodoFooter from './TodoFooter';
+import Example from "./Example";
 
-
-// 1. Create a new context with React.createContext and assign it to a context variable
-// 2. Surround all teh components which need to use the values from context with <CreatedContextName.Provider></CreatedContextName.Provider>
-// 3. Pass the value which we need to have in child components with value props
-// 4. In the needed components use useContext(CreatedContextName) to have a value from context
-function Test1() {
-    return <div>
-        <Test2 />
-    </div>
-}
-function Test2() {
-    return <div>
-        <Test3 />
-    </div>
-}
-
-function Test3() {
-    const country = useContext(CountryContext);
-    return <div>
-        Hello {country}
-    </div>
-}
-
-const CountryContext = React.createContext("Armenia");
-
+// UseEffect with second parameter as empty array calls after mount
+// UseEffect with second parameter as not empty array calls each time when the value in array changes
+// UseEffect for mounted returns a function which calls before unmount
+// UseEffect for update returns a function which calls each time before calling next function in UseEffect
 function App() {
+    const [isVisible, setIsVisible] = useState(true);
     return (
         <div className="App">
-            <CountryContext.Provider value="Columbia">
-                <Test1/>
-            </CountryContext.Provider>
+            Hello Armenia
+            <button onClick={() => setIsVisible(!isVisible)}>click me</button>
+            {
+                isVisible ? <Example /> : null
+            }
         </div>
     );
 }
