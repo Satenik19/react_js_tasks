@@ -1,88 +1,40 @@
 import './App.css';
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import TodoList from './TodoList';
 import TodoForm from './TodoForm';
 import TodoFooter from './TodoFooter';
-//
-//    "lint": "eslint src/**/*.js"
 
-function useReducer(reducer, initialState) {
-    const [state, setState] = useState(initialState);
 
-    return [
-        state, (action) => {
-            const newState = reducer(state, action);
-            setState(newState);
-        }
-    ]
+// 1. Create a new context with React.createContext and assign it to a context variable
+// 2. Surround all teh components which need to use the values from context with <CreatedContextName.Provider></CreatedContextName.Provider>
+// 3. Pass the value which we need to have in child components with value props
+// 4. In the needed components use useContext(CreatedContextName) to have a value from context
+function Test1() {
+    return <div>
+        <Test2 />
+    </div>
 }
-function reducer(state, action) {
-    if (action.type === 'add') {
-        return [
-            ...state,
-            {
-                id: Math.random(),
-                text: action.payload.text,
-                isCompleted: false
-            }
-        ]
-    } else if (action.type === 'delete') {
-        return state.filter(t => t.id !== action.payload.id)
-    }
-
-    return state;
+function Test2() {
+    return <div>
+        <Test3 />
+    </div>
 }
+
+function Test3() {
+    const country = useContext(CountryContext);
+    return <div>
+        Hello {country}
+    </div>
+}
+
+const CountryContext = React.createContext("Armenia");
 
 function App() {
-    const [todos, dispatch] = useReducer(reducer,[
-        {
-            id: Math.random(),
-            text: "Learn Java",
-            isCompleted: false
-        },
-        {
-            id: Math.random(),
-            text: "Learn JS",
-            isCompleted: false
-        },
-        {
-            id: Math.random(),
-            text: "Learn PHP",
-            isCompleted: false
-        }
-    ]);
     return (
         <div className="App">
-            <TodoForm onAdd={(text) => {
-                dispatch({
-                    type: 'add',
-                    payload: {
-                        text,
-                    }
-                })
-            }}/>
-            <TodoList todos={todos}
-                      onChange={(newTodo) => {
-                          // setTodos(todos.map(todo => {
-                          //     if (todo.id === newTodo.id) {
-                          //         return newTodo;
-                          //     }
-                          //     return todo;
-                          // }));
-                      }}
-                      onDelete={(todo) => {
-                          dispatch({
-                              type: 'delete',
-                              payload: {
-                                  id: todo.id,
-                              }
-                          })
-                          // setTodos(todos.filter(t => t.id !== todo.id));
-                      }}/>
-            <TodoFooter todos={todos} onClearCompleted={() => {
-
-                // setTodos(todos.filter(todo => !todo.isCompleted));
-            }}/>
+            <CountryContext.Provider value="Columbia">
+                <Test1/>
+            </CountryContext.Provider>
         </div>
     );
 }
