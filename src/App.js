@@ -1,56 +1,88 @@
 import './App.css';
-import React, {useEffect, useState} from 'react';
-import useCoronaData from "./useCoronaData";
+import React, {useState} from 'react';
+import TodoList from './TodoList';
+import TodoForm from './TodoForm';
+import TodoFooter from './TodoFooter';
+//
+//    "lint": "eslint src/**/*.js"
 
-function App() {
-    const [title, setTitle] = useState("");
-    // const [data, setData] = useState();
-    // UseEffect is calling only after rendering
-    // If the second parameter is not empty, it's calling 1 time after mount, and every time when that parameter(s) change(s)
-    // UseEffect returns a function before calling next function in it
-    // UseEffect can't be inside if
+function useReducer(reducer, initialState) {
+    const [state, setState] = useState(initialState);
 
-
-    // useEffect(() => {
-    //     console.log("UseEffect");
-    //     // Debounce with setTimeout
-    //     if (title.length === 2) {
-    //         const handle = setTimeout(() => {
-    //             fetch(`https://corona-api.com/countries/${title}`)
-    //                 .then(stream => stream.json())
-    //                 .then(results => setData(results.data))
-    //         }, 1000);
-    //
-    //         return () => {
-    //             clearTimeout(handle);
-    //         }
-    //     }
-    // }, [title]);
-    const data = useCoronaData(title);
-
-    // useEffect(() => {
-    //     console.log("UseEffect");
-    //     fetch(`https://corona-api.com/countries`)
-    //         .then(stream => stream.json())
-    //         .then(results => setData(results.data))
-    // }, []);
-
-    let confirmed = "";
-    let name = "";
-    if (data !== undefined) {
-        confirmed = data.latest_data.confirmed;
-        name = data.name;
+    return [
+        state, (action) => {
+            const newState = reducer(state, action);
+            setState(newState);
+        }
+    ]
+}
+function reducer(state, action) {
+    if (action.type === 'add') {
+        return [
+            ...state,
+            {
+                id: Math.random(),
+                text: action.payload.text,
+                isCompleted: false
+            }
+        ]
+    } else if (action.type === 'delete') {
+        return state.filter(t => t.id !== action.payload.id)
     }
 
+    return state;
+}
+
+function App() {
+    const [todos, dispatch] = useReducer(reducer,[
+        {
+            id: Math.random(),
+            text: "Learn Java",
+            isCompleted: false
+        },
+        {
+            id: Math.random(),
+            text: "Learn JS",
+            isCompleted: false
+        },
+        {
+            id: Math.random(),
+            text: "Learn PHP",
+            isCompleted: false
+        }
+    ]);
     return (
         <div className="App">
-            <input
-                type="text"
-                value={title}
-                onChange={(e) => {
-                setTitle(e.target.value)}}
-            />
-            <h1>{name} {confirmed}</h1>
+            <TodoForm onAdd={(text) => {
+                dispatch({
+                    type: 'add',
+                    payload: {
+                        text,
+                    }
+                })
+            }}/>
+            <TodoList todos={todos}
+                      onChange={(newTodo) => {
+                          // setTodos(todos.map(todo => {
+                          //     if (todo.id === newTodo.id) {
+                          //         return newTodo;
+                          //     }
+                          //     return todo;
+                          // }));
+                      }}
+                      onDelete={(todo) => {
+                          dispatch({
+                              type: 'delete',
+                              payload: {
+                                  id: todo.id,
+                              }
+                          })
+                          // setTodos(todos.filter(t => t.id !== todo.id));
+                      }}/>
+            <TodoFooter todos={todos} onClearCompleted={() => {
+
+                // setTodos(todos.filter(todo => !todo.isCompleted));
+            }}/>
         </div>
     );
 }
