@@ -1,30 +1,23 @@
-import { currentUserReducer, initialCurrentUser } from '../features/currentUser/currentUserSlice';
-import { initialTodos, todosReducer } from '../features/todos/todosSlice';
+import createSagaMiddleWare from 'redux-saga';
 import { applyMiddleware, combineReducers } from 'redux';
+import { citiesReducer, initialCities } from './cities/reducer';
+import appSagas from './weather/saga';
+import { weatherReducer } from './weather/reducer';
 const { createStore } = require('redux');
 
-function logger1(store) {
-    return function(next) {
-        return function(action) {
-            // setTimeout(() => {
-            //     next(action);
-            // }, 2000);
-            next(action);
-        }
-    }
-}
+const sagaMiddleWare = createSagaMiddleWare();
 
-const logger2 = (store) => (next) => (action) => {
-    return next(action);
-}
-const store = createStore(combineReducers({
-    todos: todosReducer,
-    currentUser: currentUserReducer
-}), {
-    currentUser: initialCurrentUser,
-    // friends: [],
-    // posts: [],
-    todos: initialTodos
-}, applyMiddleware(logger1, logger2));
+const store = createStore(
+  combineReducers({
+    cities: citiesReducer,
+    weatherData: weatherReducer,
+  }),
+  {
+    cities: initialCities,
+    weatherData: [],
+  },
+  applyMiddleware(sagaMiddleWare)
+);
 
+sagaMiddleWare.run(appSagas);
 export default store;

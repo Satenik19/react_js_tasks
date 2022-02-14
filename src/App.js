@@ -1,27 +1,44 @@
 import './App.css';
-import React, { useContext, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { editName, selectName } from './features/currentUser/currentUserSlice';
-
-// Every reducer should have as first argument only the state which it needs to check and change
-// Store contains the state, reducers and middlewares
-// CreateStore has 2 parameters, the first function is the reducer function, which tells what action should handle what reducer,
-// the second parameter is initial state
-// The first parameter can be combineReducers function where in object we should say which data handles which reducer (pass reducer name)
-// For every data in state we should have separate js file where we have all functions related to that data (action creators, data getters etc.)
+import React from 'react';
+import CityList from './components/cities/CityList';
+import { Routes, Route, BrowserRouter as Router, Link } from 'react-router-dom';
+import DailyWeather from './components/dailyWeather/DailyWeather';
+// import { useDispatch, useSelector } from 'react-redux';
+// import {
+//   editName,
+//   loadUser,
+//   selectName,
+// } from './features/currentUser/currentUserSlice';
 
 function App() {
-    const name = useSelector(selectName);
-    const dispatch = useDispatch();
+  // const name = useSelector(selectName);
+  // const dispatch = useDispatch();
 
-    return (
-        <div className="App">
-            <h1>{name}</h1>
-            <input type="text" value={name} onChange={(e) => {
-                dispatch(editName(e.target.value))
-            }}/>
-        </div>
-    );
+  return (
+    <Router>
+      <div className="App">
+        <ul className="App-header">
+          <h1>Weather app</h1>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/cities">Cities</Link>
+          </li>
+          <li>
+            <Link to="/favourites">Favourites</Link>
+          </li>
+          <li>
+            <Link to="/daily">Daily weather</Link>
+          </li>
+        </ul>
+        <Routes>
+          <Route path="/cities" element={<CityList />} />
+          <Route path="/daily" element={<DailyWeather />} />
+        </Routes>
+      </div>
+    </Router>
+  );
 }
 
 export default App;
