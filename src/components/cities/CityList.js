@@ -1,5 +1,5 @@
 import CityItem from './CityItem';
-import React from 'react';
+import React, {useState} from 'react';
 import { useSelector } from 'react-redux';
 
 function CityList() {
@@ -7,8 +7,9 @@ function CityList() {
 
   return (
     <div>
-      {cities.map((city) => {
-        return <CityItem key={city.id} city={city} />;
+      <h1>List of cities</h1>
+      {cities.map((city, index) => {
+        return <CityItem key={index} city={city} />;
       })}
     </div>
   );
