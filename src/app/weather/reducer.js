@@ -1,5 +1,3 @@
-
-export function weatherReducer(state = {}, action) {
-
+export function weatherReducer(state = {}) {
   return state;
 }

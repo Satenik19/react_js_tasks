@@ -3,7 +3,7 @@ import { Action } from './actions';
 export function citiesReducer(state = {}, action) {
   switch (action.type) {
     case Action.GET_CITIES_REQUEST:
-      state =  {
+      state = {
         ...state,
       };
       break;
@@ -12,14 +12,14 @@ export function citiesReducer(state = {}, action) {
         if (city.id === action.payload.id) {
           return {
             ...city,
-            isFavourite:action.payload.favourite,
-          }
+            isFavourite: action.payload.favourite,
+          };
         }
 
         return {
-          ...city
-        }
-      })
+          ...city,
+        };
+      });
       break;
   }
 

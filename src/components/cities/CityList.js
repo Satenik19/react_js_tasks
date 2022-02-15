@@ -1,5 +1,5 @@
 import CityItem from './CityItem';
-import React, {useState} from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 
 function CityList() {

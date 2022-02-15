@@ -1,4 +1,20 @@
 .App {
-  /*color: blue;*/
   padding: 10px;
+}
+
+.active a {
+  color: red;
+}
+
+a {
+  text-decoration: none;
+  padding: 5px;
+}
+
+.list-group {
+  margin: 5px;
+}
+
+li {
+  list-style: none;
 }
