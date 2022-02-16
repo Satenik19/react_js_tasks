@@ -4,7 +4,6 @@ import { Routes, Route } from 'react-router-dom';
 import NavBar from './components/navBar/index';
 import { routes } from './constants/routes';
 
-// TODO change file names
 function App() {
     const routeComponents = routes.map((route, index) => (
       <Route
