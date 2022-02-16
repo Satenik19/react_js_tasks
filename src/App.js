@@ -1,26 +1,35 @@
 import './App.css';
 import React from 'react';
-import CityList from './components/cities/CityList';
 import { Routes, Route } from 'react-router-dom';
-import DailyWeather from './components/dailyWeather/DailyWeather';
-import CurrentCityWeather from './components/currentCity/CurrentCityWeather';
-import Favourites from './components/cities/Favourites';
-import NavBar from './components/navBar/NavBar';
+import NavBar from './components/navBar/index';
+import { routes } from './constants/routes';
 
+// TODO change file names
 function App() {
+    const routeComponents = routes.map((route, index) => (
+      <Route
+        path={route.path}
+        key={index}
+        component={route.element}
+        element={route.component}
+      >
+        {route?.children?.map((child, index) => (
+          <Route
+            path={child.path}
+            key={index}
+            index={child.index}
+            element={child.element}
+          />
+              ))}
+      </Route>
+      ));
+
   return (
     <div className="App">
       <h1>Weather app</h1>
       <NavBar />
       <Routes>
-        <Route path="/cities" element={<CityList />} />
-        <Route path="/" element={<CityList />} />
-        <Route path="/weather" component={CurrentCityWeather}>
-          <Route path=":city" element={<CurrentCityWeather />} />
-        </Route>
-        <Route path="/daily" element={<DailyWeather />} />
-        <Route path="/favourites" element={<Favourites />} />
-        <Route path="/favourites/:title" element={<DailyWeather />} />
+        {routeComponents}
       </Routes>
     </div>
   );

@@ -1,7 +1,7 @@
 import {
   GET_DAILY_WEATHER_REQUEST,
   GET_DAILY_WEATHER_SUCCESS,
-} from './actionTypes';
+} from './actions';
 
 const initialState = {
   currentCityWeather: {},

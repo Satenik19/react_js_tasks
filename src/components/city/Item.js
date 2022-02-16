@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { CHANGE_FAVORITE } from '../../app/cities/actions';
+import { CHANGE_FAVORITE } from '../../app/city/actions';
 
 function CityItem({ city }) {
   // const [copyCity, setCopyCity] = useState({...city});
@@ -27,7 +27,7 @@ function CityItem({ city }) {
       <p className="ps-2" onClick={changeFavourite}>
         <i
           className={city.isFavourite ? 'bi bi-heart-fill' : 'bi bi-heart'}
-        ></i>
+        />
       </p>
     </div>
   );
@@ -35,9 +35,9 @@ function CityItem({ city }) {
 
 CityItem.propTypes = {
   city: PropTypes.shape({
-    id: PropTypes.number,
-    title: PropTypes.string,
-    isFavourite: PropTypes.bool,
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    isFavourite: PropTypes.bool.isRequired,
   }),
 };
 

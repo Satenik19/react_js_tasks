@@ -2,9 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 import React from 'react';
 
 function NavBar() {
-  const location = useLocation();
-
-  const { pathname } = location;
+  const { pathname } = useLocation();
 
   const currentRoute = pathname.split('/')[1];
   const param = pathname.split('/')[2] ? pathname.split('/')[2] : null;

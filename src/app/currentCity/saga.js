@@ -1,13 +1,12 @@
 import { takeLatest, put } from 'redux-saga/effects';
-import { GET_DAILY_WEATHER_REQUEST } from './actionTypes';
 import axios from 'axios';
-import { getWeatherDataSuccess } from './actions';
+import { GET_DAILY_WEATHER_REQUEST, getWeatherDataSuccess } from './actions';
 
 function* getDailyWeather(action) {
   try {
     const city = action?.payload?.city ? action.payload.city : 'Yerevan';
     const response = yield axios.get(
-      `http://api.weatherapi.com/v1/forecast.json?key=8a9bf89d7930477ea40163056221402&q=${city}&days=5`
+      `http://api.weatherapi.com/v1/forecast.json?key=8a9bf89d7930477ea40163056221402&q=${city}&days=5`,
     );
     if (response?.status === 200) {
       yield put(getWeatherDataSuccess(response.data));
@@ -19,7 +18,6 @@ function* getDailyWeather(action) {
   }
 }
 
-function* appSagas() {
+export default function* () {
   yield takeLatest(GET_DAILY_WEATHER_REQUEST, getDailyWeather);
 }
-export default appSagas;

@@ -1,7 +1,7 @@
-import CityItem from './CityItem';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Item from './Item';
 
 function Favourites() {
   const citiesList = useSelector((state) => state.cities);
@@ -19,15 +19,13 @@ function Favourites() {
         <>
           <h1>List of favourite cities</h1>
           <ul>
-            {cities.map((city, index) => {
-              return (
-                <li key={index}>
-                  <Link to={`/weather/${city.title}`}>
-                    <CityItem key={index} city={city} />
-                  </Link>
-                </li>
-              );
-            })}
+            {cities.map((city, index) => (
+              <li key={index}>
+                <Link to={`/weather/${city.title}`}>
+                  <Item key={index} city={city} />
+                </Link>
+              </li>
+            ))}
           </ul>
         </>
       )}
