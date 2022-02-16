@@ -41,18 +41,10 @@ export function citiesReducer(state = initialState, action) {
       };
       break;
     case Action.CHANGE_FAVORITE:
-      state = state.map((city) => {
-        if (city.id === action.payload.id) {
-          return {
-            ...city,
-            isFavourite: action.payload.favourite,
-          };
-        }
-
-        return {
+      state = state.map((city) => ({
           ...city,
-        };
-      });
+          isFavourite: city.id === action.payload.id ? action.payload.favourite : city.isFavourite,
+        }));
       break;
   }
 

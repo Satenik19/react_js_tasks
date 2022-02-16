@@ -5,6 +5,7 @@ import Item from './Item';
 
 function Favourites() {
   const citiesList = useSelector((state) => state.cities);
+
   const [cities, setCities] = useState([]);
 
   useEffect(() => {

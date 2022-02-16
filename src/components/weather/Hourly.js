@@ -13,19 +13,10 @@ function HourlyWeather({ hours }) {
   }, [hours]);
 
   const showDetails = (index) => {
-    // TODO optimize
-    const newHours = hours.map((hour, i) => {
-      if (i === index) {
-        return {
-          ...hour,
-          showWeather: true,
-        };
-      }
-      return {
+    const newHours = hours.map((hour, i) => ({
         ...hour,
-        showWeather: false,
-      };
-    });
+        showWeather: i === index,
+      }));
     setHoursData([...newHours]);
   };
 

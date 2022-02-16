@@ -5,9 +5,11 @@ import HourlyWeather from './Hourly';
 
 function DailyWeather() {
   const dispatch = useDispatch();
+
   const { currentCityWeather } = useSelector(
     (state) => state.currentCityWeather,
   );
+
   const [foreCast, setForecast] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -65,11 +67,9 @@ function DailyWeather() {
           {foreCast?.map((day, index) => (
             <div key={index}>
               <div className="d-flex align-items-center">
-                {/* <Link to={`/daily/${city}/${day.date}`}> */}
                 <b onClick={() => showHourly(index)}>
                   {showDate(day.date)}
                 </b>
-                {/* </Link> */}
                 <p>
                   <img src={day.day?.condition?.icon || ''} aria-hidden alt="NO IMAGE" />
                 </p>

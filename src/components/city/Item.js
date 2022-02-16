@@ -4,14 +4,9 @@ import { useDispatch } from 'react-redux';
 import { CHANGE_FAVORITE } from '../../app/city/actions';
 
 function CityItem({ city }) {
-  // const [copyCity, setCopyCity] = useState({...city});
   const dispatch = useDispatch();
-  const changeFavourite = () => {
-    // setCopyCity({
-    //     ...copyCity,
-    //     isFavourite: !copyCity.isFavourite
-    // });
 
+  const changeFavourite = () => {
     dispatch({
       type: CHANGE_FAVORITE,
       payload: {
