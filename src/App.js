@@ -1,7 +1,7 @@
-import './App.css';
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import NavBar from './components/navBar/index';
+import './App.css';
+// import NavBar from './components/navBar/index';
 import { routes } from './constants/routes';
 
 function App() {
@@ -25,8 +25,8 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Weather app</h1>
-      <NavBar />
+      {/* <h1>Weather app</h1> */}
+      {/* <NavBar /> */}
       <Routes>
         {routeComponents}
       </Routes>

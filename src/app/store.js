@@ -4,7 +4,7 @@ import thunk from 'redux-thunk';
 import { citiesReducer } from './city/reducer';
 import { weatherReducer } from './weather/reducer';
 import { currentCityReducer } from './currentCity/reducer';
-import appSagas from './currentCity/saga';
+import appSagas from './sagas';
 
 const { createStore } = require('redux');
 
