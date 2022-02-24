@@ -1,5 +1,5 @@
-import axios from 'axios';
 import { takeLatest } from 'redux-saga/effects';
+import axios from '../../services/axios';
 import { GET_POSTS_REQUEST } from './actions';
 
 function* getPosts() {

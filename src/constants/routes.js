@@ -3,6 +3,8 @@ import CityList from '../components/city/List';
 import CurrentCityWeather from '../components/currentCity/Weather';
 import DailyWeather from '../components/weather/Daily';
 import Welcome from '../components/home/Welcome';
+import Login from '../components/auth/Login';
+import Register from '../components/auth/Register';
 
 export const routes = [
     {
@@ -10,8 +12,24 @@ export const routes = [
         component: <Welcome />,
     },
     {
+        path: '/login',
+        component: <Login />,
+        auth: false,
+    },
+    {
+        path: '/register',
+        component: <Register />,
+        auth: false,
+    },
+    {
+        path: '/home',
+        component: <Welcome />,
+        auth: true,
+    },
+    {
         path: '/city',
         component: <CityList />,
+        auth: true,
     },
     {
         path: '/weather',
@@ -23,17 +41,21 @@ export const routes = [
                 component: <CurrentCityWeather />,
             },
         ],
+        auth: true,
     },
     {
         path: '/daily',
         component: <DailyWeather />,
+        auth: true,
     },
     {
         path: '/favourites',
         component: <CityList />,
+        auth: true,
     },
     {
         path: '/favourites/:title',
         component: <CityList />,
+        auth: true,
     },
 ];
