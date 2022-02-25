@@ -10,8 +10,13 @@ function* signIn(action) {
             },
         );
         if (response?.status === 200) {
-            console.log(response.data, 'response from login');
-            yield put({ type: LOGIN_USER_SUCCESS, payload: response.data });
+            yield put({
+                type: LOGIN_USER_SUCCESS,
+                payload: {
+                    data: response.data,
+                    navigate: action.payload.navigate,
+                },
+            });
         }
     } catch (error) {
         yield put({ type: LOGIN_USER_ERROR, error });

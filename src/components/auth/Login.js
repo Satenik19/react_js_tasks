@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -13,6 +16,7 @@ function Login() {
             payload: {
                 email,
                 password,
+                navigate,
             },
         });
     };

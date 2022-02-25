@@ -5,6 +5,7 @@ import { citiesReducer } from './city/reducer';
 import { weatherReducer } from './weather/reducer';
 import { currentCityReducer } from './currentCity/reducer';
 import { authReducer } from './auth/reducer';
+import { postsReducer } from './home/reducer';
 import appSagas from './sagas';
 
 const { createStore } = require('redux');
@@ -17,6 +18,7 @@ const store = createStore(
     weatherData: weatherReducer,
     currentCityWeather: currentCityReducer,
     authReducer,
+    posts: postsReducer,
   }),
   applyMiddleware(sagaMiddleWare, thunk),
 );

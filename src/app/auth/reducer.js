@@ -12,9 +12,10 @@ export function authReducer(state = initialUser, action) {
         case actionTypes.LOGIN_USER_SUCCESS:
             state = {
                 ...state,
-                user: action.payload,
+                user: action.payload.data,
             };
-            localStorage.setItem('access_token', action.payload.token);
+            localStorage.setItem('access_token', action.payload.data.token);
+            action.payload.navigate('/home');
             break;
         case actionTypes.LOGOUT_USER_SUCCESS:
             localStorage.removeItem('access_token');

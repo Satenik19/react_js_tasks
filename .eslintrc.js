@@ -62,6 +62,7 @@ module.exports = {
     'indent': 'off',
     'react/require-default-props': 0,
     'react/default-props-match-prop-types': 0,
+    'no-debugger': 'off'
   },
 
   "settings": {
