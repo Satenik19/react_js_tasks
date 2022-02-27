@@ -1,11 +1,12 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import './App.css';
-// import routeComponents from './components/routes/List';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import './App.scss';
 import { ToastContainer } from 'react-toastify';
 import { routes } from './constants/routes';
 import PrivateRoute from './components/routes/Private';
 import useAuth from './services/auth';
+import PublicRoute from './components/routes/Public';
 
 function App() {
     const isAuthenticated = useAuth();
@@ -18,7 +19,12 @@ function App() {
           <PrivateRoute isAuthenticated={isAuthenticated}>
             {route.component}
           </PrivateRoute>
-            ) : route.component}
+            )
+            : (
+              <PublicRoute isAuthenticated={isAuthenticated}>
+                {route.component}
+              </PublicRoute>
+            )}
       >
         {route?.children?.map((child, index) => (
           <Route

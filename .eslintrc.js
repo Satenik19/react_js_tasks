@@ -62,7 +62,8 @@ module.exports = {
     'indent': 'off',
     'react/require-default-props': 0,
     'react/default-props-match-prop-types': 0,
-    'no-debugger': 'off'
+    'no-debugger': 'off',
+    'import/no-named-as-default': 0
   },
 
   "settings": {

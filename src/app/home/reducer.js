@@ -1,5 +1,4 @@
 import * as actionTypes from './actions';
-import { showToast } from '../../services/toast';
 
 const initialState = [
         {
@@ -20,7 +19,6 @@ export function postsReducer(state = initialState, action) {
                 ...state,
                 ...action.payload,
             ];
-            showToast('success', 'Welcome');
             break;
     }
 

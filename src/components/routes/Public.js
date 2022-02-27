@@ -1,17 +1,11 @@
 import React from 'react';
-import { Route, Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-const isLoggedIn = true;
+const PublicRoute = ({ isAuthenticated, children }) => !isAuthenticated ? children : <Navigate to="/home" />;
 
-// eslint-disable-next-line react/prop-types
-const PublicRoute = ({ component: Component, isRestricted, ...rest }) => (
-  <Route
-    {...rest}
-    render={(props) => (
-            (isLoggedIn && isRestricted)
-                ? <Navigate to="/welcome" />
-                : <Component {...props} />
-        )}
-  />
-    );
+PublicRoute.propTypes = {
+    isAuthenticated: PropTypes.bool.isRequired,
+    children: PropTypes.object.isRequired,
+};
 export default PublicRoute;
