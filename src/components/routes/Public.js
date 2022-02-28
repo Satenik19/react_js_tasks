@@ -2,7 +2,7 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const PublicRoute = ({ isAuthenticated, children }) => !isAuthenticated ? children : <Navigate to="/home" />;
+const PublicRoute = ({ isAuthenticated, children }) => !isAuthenticated ? children : <Navigate to="/posts" />;
 
 PublicRoute.propTypes = {
     isAuthenticated: PropTypes.bool.isRequired,

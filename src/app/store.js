@@ -5,7 +5,7 @@ import { citiesReducer } from './city/reducer';
 import { weatherReducer } from './weather/reducer';
 import { currentCityReducer } from './currentCity/reducer';
 import { authReducer } from './auth/reducer';
-import { postsReducer } from './home/reducer';
+import { postsReducer } from './post/reducer';
 import appSagas from './sagas';
 
 const { createStore } = require('redux');

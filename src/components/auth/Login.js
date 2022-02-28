@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { showToast } from '../../services/toast';
+import usePrevious from '../../services/usePrevious';
 import { LOGIN_USER_REQUEST } from '../../app/auth/actions';
 
 function Login() {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -14,10 +14,11 @@ function Login() {
     const loginSuccess = useSelector((state) => state.userData.loginSuccess);
     const loginError = useSelector((state) => state.userData.loginError);
 
+    const prevLoginSuccess = usePrevious(loginSuccess);
+
     useEffect(() => {
-        if (loginSuccess) {
-            console.log('success');
-            navigate('/home');
+        if (prevLoginSuccess === false && loginSuccess) {
+            window.location.reload(false);
         }
     }, [loginSuccess]);
 

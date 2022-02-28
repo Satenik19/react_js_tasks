@@ -25,6 +25,7 @@ function* signIn(action) {
             });
         }
     } catch (error) {
+        console.log(error, 'err');
         yield put({ type: LOGIN_USER_ERROR, error });
     }
 }

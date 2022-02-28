@@ -1,5 +1,12 @@
+$white: #fff;
+$blue: #167bff;
+$backgroundBlue: #1C8EF9;
+$red: red;
+
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 /*.App {*/
 /*  padding: 10px;*/
@@ -23,7 +30,7 @@
 /*}*/
 
 body {
-  background: #1C8EF9 !important;
+  background: $backgroundBlue !important;
   min-height: 100vh;
   display: flex;
   font-weight: 400;
@@ -37,11 +44,11 @@ h1,h2,h3,h4,h5,h6,label,span {
 
 body, html, .App, #root, .auth-wrapper {
   width: 100%;
-  height: 100%;
+  min-height: 100%;
 }
 
 .navbar-light {
-  background-color: #fff;
+  background-color: $white;
   box-shadow: 0 14px 80px rgba(34, 35, 58, 0.2);
 }
 
@@ -53,17 +60,17 @@ body, html, .App, #root, .auth-wrapper {
 
   .auth-inner {
     width: 450px;
-    margin: auto;
-    background: #ffffff;
+    background: $white;
     box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
     padding: 40px 55px 45px 55px;
     border-radius: 15px;
     transition: all .3s;
+    margin: 5% auto auto;
   }
 
   .form-control {
     &:focus {
-      border-color: #167bff;
+      border-color: $blue;
       box-shadow: none;
     }
   }
@@ -73,6 +80,9 @@ body, html, .App, #root, .auth-wrapper {
     margin: 0;
     line-height: 1;
     padding-bottom: 20px;
+  }
+  label {
+    font-weight: bold;
   }
 }
 
@@ -88,10 +98,28 @@ body, html, .App, #root, .auth-wrapper {
   margin: 0;
 
   a {
-    color: #167bff;
+    color: $blue;
     text-align: right;
     font-size: 13px;
     padding-top: 10px;
     margin: 0;
   }
+}
+
+.error-message {
+  color: $red;
+}
+
+.posts-container {
+  margin: 0 auto;
+  .posts-header {
+    color: $white;
+    margin: 10px;
+  }
+
+  .post-item {
+    width: 30%;
+    margin: 10px;
+  }
+
 }

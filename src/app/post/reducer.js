@@ -1,13 +1,6 @@
 import * as actionTypes from './actions';
 
-const initialState = [
-        {
-            id: 1,
-            title: 'Test',
-        },
-    ];
-
-export function postsReducer(state = initialState, action) {
+export function postsReducer(state = [], action) {
     switch (action.type) {
         case actionTypes.GET_POSTS_REQUEST:
             state = [

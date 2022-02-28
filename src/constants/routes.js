@@ -2,14 +2,14 @@ import React from 'react';
 import CityList from '../components/city/List';
 import CurrentCityWeather from '../components/currentCity/Weather';
 import DailyWeather from '../components/weather/Daily';
-import Welcome from '../components/home/Welcome';
+import Posts from '../components/posts/List';
 import Login from '../components/auth/Login';
 import Register from '../components/auth/Register';
 
 export const routes = [
     {
         path: '/',
-        component: <Welcome />,
+        component: <Posts />,
     },
     {
         path: '/login',
@@ -22,8 +22,8 @@ export const routes = [
         auth: false,
     },
     {
-        path: '/home',
-        component: <Welcome />,
+        path: '/posts',
+        component: <Posts />,
         auth: true,
     },
     {

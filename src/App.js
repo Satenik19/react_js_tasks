@@ -5,7 +5,7 @@ import './App.scss';
 import { ToastContainer } from 'react-toastify';
 import { routes } from './constants/routes';
 import PrivateRoute from './components/routes/Private';
-import useAuth from './services/auth';
+import useAuth from './services/useAuth';
 import PublicRoute from './components/routes/Public';
 
 function App() {
