@@ -1,4 +1,4 @@
-import { Action } from './actions';
+import * as actionTypes from './actions';
 
 const initialState = [
   {
@@ -35,12 +35,12 @@ const initialState = [
 
 export function citiesReducer(state = initialState, action) {
   switch (action.type) {
-    case Action.GET_CITIES_REQUEST:
+    case actionTypes.GET_CITIES_REQUEST:
       state = {
         ...state,
       };
       break;
-    case Action.CHANGE_FAVORITE:
+    case actionTypes.CHANGE_FAVORITE:
       state = state.map((city) => ({
           ...city,
           isFavourite: city.id === action.payload.id ? action.payload.favourite : city.isFavourite,

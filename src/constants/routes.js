@@ -2,7 +2,7 @@ import React from 'react';
 import CityList from '../components/city/List';
 import CurrentCityWeather from '../components/currentCity/Weather';
 import DailyWeather from '../components/weather/Daily';
-import Posts from '../components/posts/List';
+import Posts from '../components/post/List';
 import Login from '../components/auth/Login';
 import Register from '../components/auth/Register';
 

@@ -8,8 +8,16 @@ function Item({ post }) {
         <h5 className="card-header">
           {post.title}
         </h5>
-        <div className="card-body">
+        <div className="card-body d-flex justify-content-between">
           <p className="card-text">{post.description}</p>
+          <div>
+            <button type="button" className="btn btn-primary mr-2">
+              Edit
+            </button>
+            <button type="button" className="btn btn-danger">
+              Delete
+            </button>
+          </div>
         </div>
       </div>
     );

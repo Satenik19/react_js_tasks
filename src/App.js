@@ -1,6 +1,8 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+// eslint-disable-next-line import/extensions
+import 'bootstrap/dist/js/bootstrap.js';
 import './App.scss';
 import { ToastContainer } from 'react-toastify';
 import { routes } from './constants/routes';

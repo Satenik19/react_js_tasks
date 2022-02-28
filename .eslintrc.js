@@ -63,7 +63,8 @@ module.exports = {
     'react/require-default-props': 0,
     'react/default-props-match-prop-types': 0,
     'no-debugger': 'off',
-    'import/no-named-as-default': 0
+    'import/no-named-as-default': 0,
+    'import/extensions': ['.jsx', '.js'],
   },
 
   "settings": {

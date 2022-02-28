@@ -18,7 +18,7 @@ const store = createStore(
     weatherData: weatherReducer,
     currentCityWeather: currentCityReducer,
     userData: authReducer,
-    posts: postsReducer,
+    postsData: postsReducer,
   }),
   applyMiddleware(sagaMiddleWare, thunk),
 );
