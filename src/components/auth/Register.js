@@ -11,8 +11,7 @@ function Register() {
     const [values, setValues] = useState({});
     const [errors, setErrors] = useState({});
 
-    const registerSuccess = useSelector((state) => state.userData.registerSuccess);
-    const registerError = useSelector((state) => state.userData.registerError);
+    const { registerSuccess, registerError } = useSelector((state) => state.userData);
 
     useEffect(() => {
         if (registerSuccess) {
@@ -84,7 +83,6 @@ function Register() {
 
     const handleChange = (event) => {
         setValues((values) => ({ ...values, [event.target.name]: event.target.value }));
-        console.log(event, 'event');
         setErrors({});
     };
 

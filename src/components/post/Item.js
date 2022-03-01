@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
-function Item({ post }) {
+function Item({
+ post, deleteItem, setSelectedPost, index,
+}) {
     return (
-        // eslint-disable-next-line react/style-prop-object
       <div className="card post-item">
         <h5 className="card-header">
           {post.title}
@@ -11,10 +12,22 @@ function Item({ post }) {
         <div className="card-body d-flex justify-content-between">
           <p className="card-text">{post.description}</p>
           <div>
-            <button type="button" className="btn btn-primary mr-2">
+            <button
+              type="button"
+              className="btn btn-primary mr-2"
+              onClick={() => {
+                  setSelectedPost({ ...post, index });
+              }}
+              data-toggle="modal"
+              data-target="#posts-modal"
+            >
               Edit
             </button>
-            <button type="button" className="btn btn-danger">
+            <button
+              type="button"
+              className="btn btn-danger"
+              onClick={() => deleteItem(post._id)}
+            >
               Delete
             </button>
           </div>
@@ -25,9 +38,13 @@ function Item({ post }) {
 
 Item.propTypes = {
     post: PropTypes.shape({
+        _id: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
         description: PropTypes.string.isRequired,
     }),
+    index: PropTypes.number,
+    deleteItem: PropTypes.func,
+    setSelectedPost: PropTypes.func,
 };
 
-export default Item;
+export default memo(Item);

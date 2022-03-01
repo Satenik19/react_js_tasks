@@ -1,41 +1,61 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ADD_POST_REQUEST } from '../../app/post/actions';
+import PropTypes from 'prop-types';
+import { ADD_POST_REQUEST, UPDATE_POST_REQUEST } from '../../app/post/actions';
 import { showToast } from '../../services/toast';
 
-function New() {
+function New({ selectedPost }) {
+    const {
+        addPostSuccess, addPostError, updatePostError, updatePostSuccess,
+    } = useSelector((state) => state.postsData);
+
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-
-    const addPostSuccess = useSelector((state) => state.postsData.addPostSuccess);
-    const addPostError = useSelector((state) => state.postsData.addPostError);
 
     const dispatch = useDispatch();
     const ref = useRef();
 
     useEffect(() => {
-        if (addPostSuccess) {
-            showToast('success', 'Post has been added successfully');
+        if (addPostSuccess || updatePostSuccess) {
+            showToast('success', `Post has been ${updatePostSuccess ? 'updated' : 'added'} successfully`);
             ref.current.click();
             resetData();
         }
-    }, [addPostSuccess]);
+    }, [addPostSuccess, updatePostSuccess]);
 
     useEffect(() => {
-        if (addPostError) {
+        if (addPostError || updatePostError) {
             showToast('error', 'Something went wrong');
         }
-    }, [addPostError]);
+    }, [addPostError, updatePostError]);
+
+    useEffect(() => {
+        if (selectedPost._id) {
+            setTitle(selectedPost.title);
+            setDescription(selectedPost.description);
+        }
+    }, [selectedPost]);
 
     const submitPost = (e) => {
         e.preventDefault();
-        dispatch({
-            type: ADD_POST_REQUEST,
-            payload: {
-                title,
-                description,
-            },
-        });
+        if (selectedPost._id) {
+            dispatch({
+                type: UPDATE_POST_REQUEST,
+                payload: {
+                    ...selectedPost,
+                    title,
+                    description,
+                },
+            });
+        } else {
+            dispatch({
+                type: ADD_POST_REQUEST,
+                payload: {
+                    title,
+                    description,
+                },
+            });
+        }
     };
 
     const resetData = () => {
@@ -58,7 +78,7 @@ function New() {
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLabel">New post</h5>
+                <h5 className="modal-title" id="exampleModalLabel">{ selectedPost._id ? 'Edit post' : 'New post' }</h5>
                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -70,7 +90,7 @@ function New() {
                     <input
                       type="text"
                       className="form-control"
-                      value={title}
+                      value={title || ''}
                       onChange={(e) => setTitle(e.target.value)}
                     />
                   </div>
@@ -79,7 +99,7 @@ function New() {
                     <input
                       type="text"
                       className="form-control"
-                      value={description}
+                      value={description || ''}
                       onChange={(e) => setDescription(e.target.value)}
                     />
                   </div>
@@ -107,5 +127,9 @@ function New() {
       </div>
         );
 }
+
+New.propTypes = {
+    selectedPost: PropTypes.object,
+};
 
 export default New;

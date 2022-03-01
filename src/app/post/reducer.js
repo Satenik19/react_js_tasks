@@ -2,8 +2,12 @@ import * as actionTypes from './actions';
 
 const initialState = {
     posts: [],
-    addPostSuccess: false,
-    addPostError: false,
+    addPostSuccess: null,
+    addPostError: null,
+    deletePostSuccess: null,
+    deletePostError: null,
+    updatePostSuccess: null,
+    updatePostError: null,
 };
 
 export function postsReducer(state = initialState, action) {
@@ -39,6 +43,53 @@ export function postsReducer(state = initialState, action) {
                 ...state,
                 addPostSuccess: false,
                 addPostError: true,
+            };
+            break;
+        case actionTypes.DELETE_POST_REQUEST:
+            state = {
+                ...state,
+                deletePostSuccess: false,
+                deletePostError: false,
+            };
+            break;
+        case actionTypes.DELETE_POST_SUCCESS:
+            state = {
+                ...state,
+                posts: [...state.posts.filter((post) => post._id !== action.payload.id)],
+                deletePostSuccess: true,
+                deletePostError: false,
+            };
+            break;
+        case actionTypes.DELETE_POST_ERROR:
+            state = {
+                ...state,
+                deletePostSuccess: false,
+                deletePostError: true,
+            };
+            break;
+        case actionTypes.UPDATE_POST_REQUEST:
+            state = {
+                ...state,
+                updatePostSuccess: false,
+                updatePostError: false,
+            };
+            break;
+        case actionTypes.UPDATE_POST_SUCCESS:
+        {
+            const newData = [...state.posts];
+            newData[action.payload.index] = { ...action.payload.post };
+            state = {
+                posts: [...newData],
+                updatePostSuccess: true,
+                updatePostError: false,
+            };
+            break;
+        }
+        case actionTypes.UPDATE_POST_ERROR:
+            state = {
+                ...state,
+                updatePostSuccess: false,
+                updatePostError: true,
             };
             break;
     }
