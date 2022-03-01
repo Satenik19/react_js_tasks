@@ -6,7 +6,7 @@ import {
     LOGIN_USER_ERROR,
     REGISTER_REQUEST,
     REGISTER_SUCCESS,
-    REGISTER_ERROR,
+    REGISTER_ERROR, CHANGE_PASSWORD_SUCCESS, CHANGE_PASSWORD_ERROR, CHANGE_PASSWORD_REQUEST,
 } from './actions';
 
 function* signIn(action) {
@@ -38,16 +38,30 @@ function* signUp(action) {
             },
         );
         if (response?.status === 200) {
-            yield put({
-                type: REGISTER_SUCCESS,
-            });
+            yield put({ type: REGISTER_SUCCESS });
         }
     } catch (error) {
         yield put({ type: REGISTER_ERROR, error });
     }
 }
 
+function* changePassword(action) {
+    try {
+        const response = yield axios.post(
+            `${process.env.REACT_APP_API_ENDPOINT}/change-password`, {
+                password: action.payload.password,
+            },
+        );
+        if (response?.status === 200) {
+            yield put({ type: CHANGE_PASSWORD_SUCCESS });
+        }
+    } catch (error) {
+        yield put({ type: CHANGE_PASSWORD_ERROR, error });
+    }
+}
+
 export default function* () {
     yield takeLatest(LOGIN_USER_REQUEST, signIn);
     yield takeLatest(REGISTER_REQUEST, signUp);
+    yield takeLatest(CHANGE_PASSWORD_REQUEST, changePassword);
 }

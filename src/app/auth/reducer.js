@@ -11,6 +11,8 @@ const initialState = {
     loginError: null,
     registerSuccess: null,
     registerError: null,
+    changePasswordSuccess: null,
+    changePasswordError: null,
 };
 
 export function authReducer(state = initialState, action) {
@@ -60,6 +62,27 @@ export function authReducer(state = initialState, action) {
                 ...state,
                 registerSuccess: false,
                 registerError: true,
+            };
+            break;
+        case actionTypes.CHANGE_PASSWORD_REQUEST:
+            state = {
+                ...state,
+                changePasswordSuccess: false,
+                changePasswordError: false,
+            };
+            break;
+        case actionTypes.CHANGE_PASSWORD_SUCCESS:
+            state = {
+                ...state,
+                changePasswordSuccess: true,
+                changePasswordError: false,
+            };
+            break;
+        case actionTypes.CHANGE_PASSWORD_ERROR:
+            state = {
+                ...state,
+                changePasswordSuccess: false,
+                changePasswordError: true,
             };
             break;
     }

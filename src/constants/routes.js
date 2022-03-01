@@ -5,6 +5,7 @@ import DailyWeather from '../components/weather/Daily';
 import Posts from '../components/post/List';
 import Login from '../components/auth/Login';
 import Register from '../components/auth/Register';
+import ChangePassword from '../components/profile/ChangePassword';
 
 export const routes = [
     {
@@ -24,6 +25,11 @@ export const routes = [
     {
         path: '/posts',
         component: <Posts />,
+        auth: true,
+    },
+    {
+        path: '/profile',
+        component: <ChangePassword />,
         auth: true,
     },
     {
