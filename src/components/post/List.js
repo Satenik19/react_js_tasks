@@ -5,6 +5,7 @@ import Post from './Item';
 import NewPost from './New';
 import usePrevious from '../../services/usePrevious';
 import { showToast } from '../../services/toast';
+import SideBar from '../profile/SideBar';
 
 function List() {
     const dispatch = useDispatch();
@@ -44,20 +45,23 @@ function List() {
     }, []);
 
     return (
-      <div className="posts-container container">
-        <h1 className="posts-header">Posts list</h1>
-        <NewPost selectedPost={selectedPost} />
-        {
-              posts.map((post, index) => (
-                <Post
-                  key={index}
-                  post={post}
-                  deleteItem={deleteItem}
-                  setSelectedPost={setSelectedPost}
-                  index={index}
-                />
-              ))
-        }
+      <div>
+        <SideBar />
+        <div className="posts-container container">
+          <h1 className="posts-header">Posts list</h1>
+          <NewPost selectedPost={selectedPost} />
+          {
+                    posts.map((post, index) => (
+                      <Post
+                        key={index}
+                        post={post}
+                        deleteItem={deleteItem}
+                        setSelectedPost={setSelectedPost}
+                        index={index}
+                      />
+                    ))
+                }
+        </div>
       </div>
     );
 }

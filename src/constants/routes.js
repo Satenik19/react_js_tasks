@@ -5,7 +5,9 @@ import DailyWeather from '../components/weather/Daily';
 import Posts from '../components/post/List';
 import Login from '../components/auth/Login';
 import Register from '../components/auth/Register';
+import SideBar from '../components/profile/SideBar';
 import ChangePassword from '../components/profile/ChangePassword';
+import CoverPhoto from '../components/profile/CoverPhoto';
 
 export const routes = [
     {
@@ -29,7 +31,17 @@ export const routes = [
     },
     {
         path: '/profile',
+        component: <SideBar />,
+        auth: true,
+    },
+    {
+        path: '/change-password',
         component: <ChangePassword />,
+        auth: true,
+    },
+    {
+        path: '/cover',
+        component: <CoverPhoto />,
         auth: true,
     },
     {

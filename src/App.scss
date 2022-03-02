@@ -2,6 +2,8 @@ $white: #fff;
 $blue: #167bff;
 $backgroundBlue: #1C8EF9;
 $red: red;
+$black: #000;
+$grey: #eee;
 
 * {
   box-sizing: border-box;
@@ -94,7 +96,7 @@ body, html, .App, #root, .auth-wrapper {
   text-align: right;
   font-size: 13px;
   padding-top: 10px;
-  color: #7f7d7d;
+  color: $grey;
   margin: 0;
 
   a {
@@ -114,11 +116,70 @@ body, html, .App, #root, .auth-wrapper {
   margin: 0 auto;
   .posts-header {
     color: $white;
-    margin: 10px;
+    margin: 0 10px 10px;
+    padding-top: 10px;
+    text-align: center;
   }
 
   .post-item {
     margin: 10px;
   }
+}
 
+#sidebar-wrapper {
+  z-index: 1000;
+  position: fixed;
+  left: 0;
+  background: $white;
+  height: 100%;
+  width: 200px;
+}
+
+#page-content-wrapper {
+  width: 100%;
+  position: absolute;
+  padding: 15px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+  position: absolute;
+  margin-right: -250px;
+}
+
+.sidebar-nav {
+  position: absolute;
+  top: 0;
+  width: 200px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    text-indent: 20px;
+    line-height: 40px;
+
+    a {
+      display: block;
+      text-decoration: none;
+      color: $black;
+      border-bottom: 1px solid #eee;
+      border-top: 1px solid #eee;
+
+      &:hover {
+        text-decoration: none;
+        background: #eee;
+        color: $blue;
+      }
+    }
+  }
+
+  .active {
+    color: $blue;
+  }
+
+  .sidebar-brand {
+    height: 65px;
+    font-size: 18px;
+    line-height: 60px;
+  }
 }
