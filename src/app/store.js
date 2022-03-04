@@ -1,6 +1,7 @@
 import createSagaMiddleWare from 'redux-saga';
 import { applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import { citiesReducer } from './city/reducer';
 import { weatherReducer } from './weather/reducer';
 import { currentCityReducer } from './currentCity/reducer';
@@ -22,7 +23,7 @@ const store = createStore(
     postsData: postsReducer,
     profile: profileReducer,
   }),
-  applyMiddleware(sagaMiddleWare, thunk),
+    composeWithDevTools(applyMiddleware(sagaMiddleWare, thunk)),
 );
 
 sagaMiddleWare.run(appSagas);

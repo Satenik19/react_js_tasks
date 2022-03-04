@@ -1,0 +1,78 @@
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import usePrevious from '../../src/services/usePrevious';
+import { showToast } from '../../src/services/toast';
+import { LOGIN_USER_REQUEST } from '../../src/app/auth/actions';
+
+function Login() {
+    const dispatch = useDispatch();
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const loginSuccess = useSelector((state) => state.userData.loginSuccess);
+    const loginError = useSelector((state) => state.userData.loginError);
+
+    const prevLoginSuccess = usePrevious(loginSuccess);
+
+    useEffect(() => {
+        if (prevLoginSuccess === false && loginSuccess) {
+            window.location.reload(false);
+        }
+    }, [loginSuccess]);
+
+    useEffect(() => {
+        if (loginError) {
+            showToast('error', 'Something went wrong');
+        }
+    }, [loginError]);
+
+    const submitLogin = (e) => {
+        e.preventDefault();
+        dispatch({
+            type: LOGIN_USER_REQUEST,
+            payload: {
+                email,
+                password,
+            },
+        });
+    };
+
+    return (
+      <div className="container auth-wrapper">
+        <div className="auth-inner">
+          <form>
+            <h3>Sign In</h3>
+            <div className="form-group">
+              <label>Email address</label>
+              <input
+                type="email"
+                className="form-control"
+                placeholder="Enter email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="form-group">
+              <label>Password</label>
+              <input
+                type="password"
+                className="form-control"
+                placeholder="Enter password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <button type="submit" className="btn btn-primary btn-block" onClick={(e) => submitLogin(e)}>Login</button>
+            <p className="forgot-password text-right">
+              <Link to="/register"> Sign up
+              </Link>
+            </p>
+          </form>
+        </div>
+      </div>
+    );
+}
+
+export default Login;

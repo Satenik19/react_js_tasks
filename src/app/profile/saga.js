@@ -8,15 +8,21 @@ import {
 
 function* uploadCover(action) {
     try {
-        const response = yield axios.post(
-            `${process.env.REACT_APP_API_ENDPOINT}/upload-cover`, {
-                ...action.payload,
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data',
             },
+        };
+        const formData = new FormData();
+        formData.append('image', action.payload.file);
+        const response = yield axios.post(
+            `${process.env.REACT_APP_API_ENDPOINT}/upload-cover`, formData, config,
         );
         if (response?.status === 200) {
-            yield put({ type: UPLOAD_COVER_SUCCESS, payload: response.data.user });
+            yield put({ type: UPLOAD_COVER_SUCCESS });
         }
     } catch (error) {
+        console.log(error);
         yield put({ type: UPLOAD_COVER_ERROR, error });
     }
 }
